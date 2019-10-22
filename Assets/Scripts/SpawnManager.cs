@@ -7,25 +7,33 @@ public class SpawnManager : MonoBehaviour {
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
+    [SerializeField]
+    private GameObject[] _powerups;
 
     private bool _stopSpawning = false;
 
-    // Start is called before the first frame update
-    void Start() {
-        StartCoroutine(SpawnRoutine());
+    public void StartSpawning() {
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
-    IEnumerator SpawnRoutine() {
+    IEnumerator SpawnEnemyRoutine() {
+        yield return new WaitForSeconds(3.0f);
         while (!_stopSpawning) {
             Vector3 spawnPos = new Vector3(Random.Range(-8f, 8f), 7);
             GameObject newEnemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5.0f);
+        }
+    }
+
+    IEnumerator SpawnPowerupRoutine() {
+        yield return new WaitForSeconds(3.0f);
+        while (!_stopSpawning) {
+            yield return new WaitForSeconds(Random.Range(3f, 7f));
+            Vector3 spawnPos = new Vector3(Random.Range(-8f, 8f), 7);
+            int randomPowerup = Random.Range(0, 3);
+            Instantiate(_powerups[randomPowerup], spawnPos, Quaternion.identity);
         }
     }
 
