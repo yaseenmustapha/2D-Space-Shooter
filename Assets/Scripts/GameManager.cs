@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.R) && _isGameOver)
             SceneManager.LoadScene(1);
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     public void GameOver() {

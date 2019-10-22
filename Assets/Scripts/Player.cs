@@ -114,6 +114,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public int GetLives() {
+        return _lives;
+    }
+
     public void TripleShotActive() {
         _isTripleShotActive = true;
         StartCoroutine(TripleShotPowerDownRoutine());
